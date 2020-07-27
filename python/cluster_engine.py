@@ -40,7 +40,8 @@ def cluster_generator(input_tab_df, cluster_factor=12, debug=False, round=0):
             if debug: print(state_clusters)
             current_subset['ClusterName'] = [state + "." + str(round) + "." + str(c+1) for c in state_clusters]
         else:
-            current_subset['ClusterName'] = state + "." + str(round) + "." + current_subset['Postal']
+            #JT - set state and postal values to strings
+            current_subset['ClusterName'] = str(state) + "." + str(round) + "." + str(current_subset['Postal'])
         clusters_to_breakup = current_subset.groupby('ClusterName').sum()
         clusters_to_breakup = clusters_to_breakup[clusters_to_breakup['Index'] >= target_mean]
         if len(clusters_to_breakup) > 0:
